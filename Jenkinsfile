@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Analysis with SonarQube') {
             steps {
-                withSonarQubeEnv('emmanuelle-sonar-token') {
+                withSonarQubeEnv('sonar-qube') {
                     sh 'npm run sonar'
                 }
             }
