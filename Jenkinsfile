@@ -25,14 +25,6 @@ pipeline {
         stage('Publish tests on Jenkins') {
             steps {
                 junit '**/reports/junit.xml'
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'coverage',
-                    reportFiles: 'index.html',
-                    reportName: 'Coverage Report'
-                ])
             }
         }
         stage('Analysis with SonarQube') {
