@@ -45,12 +45,12 @@ pipeline {
         }
         stage('Scan image with Trivy') {
             steps {
-                sh 'trivy image cicd-tasklist-backend'
+                sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image cicd-tasklist-backend'
             }
         }
         stage('Generate SBOM with Trivy') {
             steps {
-                sh 'trivy image --format cyclonedx --output ./reports/sbom.json cicd-tasklist-backend'
+                sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${WORKSPACE}:/workspace aquasec/trivy:latest image --format cyclonedx --output /workspace/reports/sbom.json cicd-tasklist-backend'
             }
         }
         stage('Push Docker image to Docker Hub') {
