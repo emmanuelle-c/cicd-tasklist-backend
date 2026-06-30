@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Analysis with SonarQube') {
             steps {
-                withSonarQubeEnv('sonarqube-token-emmanuelle-c') {
+                withSonarQubeEnv('emmanuelle-sonar-token') {
                     sh 'npm run sonar'
                 }
             }
@@ -51,7 +51,7 @@ pipeline {
         }
         stage('Push Docker image to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-emmanuelle-c', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'emmanuelle-docker-password', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                     sh 'docker tag cicd-tasklist-backend $DOCKER_USERNAME/cicd-tasklist-backend:latest'
                     sh 'docker push $DOCKER_USERNAME/cicd-tasklist-backend:latest'
