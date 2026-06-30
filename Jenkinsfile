@@ -50,6 +50,7 @@ pipeline {
         }
         stage('Generate SBOM with Trivy') {
             steps {
+                sh 'mkdir -p reports'
                 sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${WORKSPACE}:/workspace aquasec/trivy:latest image --format cyclonedx --output /workspace/reports/sbom.json cicd-tasklist-backend'
             }
         }
