@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS_26'
+        sonar 'SonarQube_8'
+    }
+
     stages {
         stage('Install Dependencies') {
             steps {
